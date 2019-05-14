@@ -35,6 +35,7 @@ const runCompilation = (file) => {
 
 	return new Promise((resolve, reject) => {
 		compiler.run((fatal, stats) => {
+			console.log(stats);
 			if (stats && stats.hasErrors()) {
 				reject(fatal);
 			}

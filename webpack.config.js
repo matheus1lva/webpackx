@@ -5,12 +5,15 @@ module.exports = {
 	output: {
 		filename: "bundle.js"
 	},
+	resolveLoader: {
+		modules: [path.resolve(__dirname, "node_modules")]
+	},
 	module: {
 		rules: [
 			{
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
-        use: [require.resolve('babel-loader')]
+        use: ['babel-loader']
 			}
 		]
 	}
