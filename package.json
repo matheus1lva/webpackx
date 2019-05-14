@@ -10,6 +10,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
+  "files": [
+    "bin",
+    "package.json",
+    "webpack.config.js"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
