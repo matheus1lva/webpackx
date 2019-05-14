@@ -1,10 +1,10 @@
 {
-  "name": "wprun",
+  "name": "webpackx",
   "version": "0.0.1-alpha.01",
   "description": "",
-  "main": "index.js",
+  "main": "bin/index.js",
   "bin": {
-    "wprun": "bin/index.js"
+    "webpackx": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
