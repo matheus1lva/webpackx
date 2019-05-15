@@ -28,7 +28,29 @@ const runProgram = () => {
 }
 
 const runCompilation = (file) => {
-	const config = require(path.resolve(__dirname, '../webpack.config.js'));
+	const config = {
+		mode: "production",
+		output: {
+			filename: "bundle.js"
+		},
+		resolve: {
+			alias: {
+				"@babel/core": path.resolve(__dirname, "../node_modules/@babel/core")
+			}
+		},
+		resolveLoader: {
+			modules: [path.resolve(__dirname, "../node_modules")]
+		},
+		module: {
+			rules: [
+				{
+					test: /\.(js|jsx|ts|tsx)$/,
+					exclude: /node_modules/,
+					use: ['babel-loader']
+				}
+			]
+		}
+	};
 	
 	config.entry = file;
 	const compiler = webpack(config);
