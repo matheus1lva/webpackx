@@ -26,6 +26,19 @@ webpackx ./index.tsx
 
 It is going to compile your file and run it's result.
 
+### Example and use cases
+Well, if you were to start developing a node script where you are using typescript, or babel with a proposal that is not already implemented, for example `optional chaining`. You would need to use `babel-node` or `ts-node` to be able to run on node those scripts, or bunch of scripts.
+
+Why cant we take advantage of webpack powerful tree shaking, bundling and few other features and merge everything together on a easy way? That is why `webpackx` started.
+
+Given for example, you created your server using typescript. You would do the following to start it on node: 
+
+```bash
+webpackx ./app.ts 
+```
+
+This will trigger a webpack build, compile it and execute on node!
+
 ## Next steps
 It is on an alpha stage, for now you need to install @babel/core as well, but we are working to fix it.
 
