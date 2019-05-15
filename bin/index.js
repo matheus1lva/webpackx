@@ -4,7 +4,7 @@ const path = require('path');
 const yargsParser = require('yargs-parser');
 const webpack = require('webpack');
 const { spawn } = require('child_process');
-const nodeExternals = require('webpack-node-externals');
+const webpacNodeExternals = require('webpack-node-externals');
 
 const argv = yargsParser(process.argv.slice(2));
 
@@ -28,13 +28,14 @@ const runProgram = () => {
 	});
 }
 
-const runCompilation = (file) => {
+const runCompilation = (file, options) => {
 	const config = {
 		mode: "production",
 		target: "node",
 		output: {
 			filename: "bundle.js"
 		},
+		externals: options.nodeExternals ? [webpacNodeExternals()] : [],
 		resolve: {
 			alias: {
 				"@babel/core": path.resolve(__dirname, "../node_modules/@babel/core")
@@ -78,12 +79,16 @@ const runCompilation = (file) => {
 const run = async () => {
 	const { _: params } = argv;
 
+	console.log(argv);
+
 	if (!params.length) {
 		throw new Error("No file passed to wprun");
 	}
 
 	try {
-		await runCompilation(params[0]);
+		await runCompilation(params[0], {
+			nodeExternals: arv.nodeExternals
+		});
 		runProgram();
 	}catch(err){
 		console.log(err);
