@@ -11,6 +11,7 @@ This still at an alpha stage, it has few bugs which are being hard to fix for no
   
 ### Install
 > npm install webpackx @babel/core
+
 > yarn add -D webpackx @babel/core
 
 ### Options
