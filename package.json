@@ -1,6 +1,6 @@
 {
   "name": "webpackx",
-  "version": "0.0.1-alpha.02",
+  "version": "0.0.1-alpha.04",
   "description": "",
   "main": "bin/index.js",
   "bin": {
@@ -13,7 +13,8 @@
   "files": [
     "bin",
     "package.json",
-    "webpack.config.js"
+    "webpack.config.js",
+    "Readme.md"
   ],
   "author": "",
   "license": "ISC",

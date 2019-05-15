@@ -30,6 +30,7 @@ const runProgram = () => {
 const runCompilation = (file) => {
 	const config = {
 		mode: "production",
+		target: "node",
 		output: {
 			filename: "bundle.js"
 		},
