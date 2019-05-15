@@ -4,6 +4,7 @@ const path = require('path');
 const yargsParser = require('yargs-parser');
 const webpack = require('webpack');
 const { spawn } = require('child_process');
+const nodeExternals = require('webpack-node-externals');
 
 const argv = yargsParser(process.argv.slice(2));
 
@@ -37,7 +38,8 @@ const runCompilation = (file) => {
 		resolve: {
 			alias: {
 				"@babel/core": path.resolve(__dirname, "../node_modules/@babel/core")
-			}
+			},
+			extensions: ['.ts', '.tsx', '.js', '.json', '.mjs']
 		},
 		resolveLoader: {
 			modules: [path.resolve(__dirname, "../node_modules")]
@@ -45,9 +47,14 @@ const runCompilation = (file) => {
 		module: {
 			rules: [
 				{
-					test: /\.(js|jsx|ts|tsx)$/,
-					exclude: /node_modules/,
-					use: ['babel-loader']
+					test: /\.mjs$/,
+					include: /node_modules/,
+					type: 'javascript/auto'
+				},	
+				{
+					test: /\.(js|jsx|ts|tsx|mjs)$/,
+					use: ['babel-loader', 'shebang-loader'],
+					exclude: [/node_modules/]
 				}
 			]
 		}

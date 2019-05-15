@@ -22,7 +22,9 @@
     "@babel/core": "^7.4.4",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^2.0.2",
+    "shebang-loader": "0.0.1",
     "webpack": "^4.31.0",
+    "webpack-node-externals": "^1.7.2",
     "yargs-parser": "^13.1.0"
   }
 }
