@@ -9,7 +9,9 @@
   "scripts": {
     "lintstaged": "lint-staged"
   },
-  "precommit": ["lintstaged"],
+  "pre-commit": [
+    "lintstaged"
+  ],
   "repository": {
     "url": "https://github.com/PlayMa256/webpackx"
   },
@@ -33,7 +35,7 @@
   },
   "devDependencies": {
     "lint-staged": "^8.1.7",
-    "precommit": "^1.2.2",
+    "pre-commit": "^1.2.2",
     "prettier": "^1.17.1"
   },
   "lint-staged": {
