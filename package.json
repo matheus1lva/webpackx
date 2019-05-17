@@ -1,6 +1,6 @@
 {
   "name": "webpackx",
-  "version": "0.0.1-alpha.06",
+  "version": "0.0.1-alpha.07",
   "description": "",
   "main": "bin/index.js",
   "bin": {

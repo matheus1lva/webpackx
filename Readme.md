@@ -19,6 +19,8 @@ This still at an alpha stage, it has few bugs which are being hard to fix for no
 	--nodeExternals 			enables webpack-node-externals
 ```
 
+If you have a webpack config anywhere on your folder, it is going to grab it, merge with our default config, with no need for you to do anything.
+
 ### Running
 ```bash
 webpackx <file you want to transpile and run>
