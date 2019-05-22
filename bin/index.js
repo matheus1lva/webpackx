@@ -4,7 +4,7 @@ const path = require('path');
 const yargsParser = require('yargs-parser');
 const webpack = require('webpack');
 const { spawn } = require('child_process');
-const webpacNodeExternals = require('webpack-node-externals');
+const baseConfig = require('webpackx-config');
 
 const argv = yargsParser(process.argv.slice(2));
 
@@ -29,37 +29,7 @@ const runProgram = () => {
 }
 
 const runCompilation = (file, options) => {
-	const config = {
-		mode: "production",
-		target: "node",
-		output: {
-			filename: "bundle.js"
-		},
-		externals: options.nodeExternals ? [webpacNodeExternals()] : [],
-		resolve: {
-			alias: {
-				"@babel/core": path.resolve(__dirname, "../node_modules/@babel/core")
-			},
-			extensions: ['.ts', '.tsx', '.js', '.json', '.mjs']
-		},
-		resolveLoader: {
-			modules: [path.resolve(__dirname, "../node_modules")]
-		},
-		module: {
-			rules: [
-				{
-					test: /\.mjs$/,
-					include: /node_modules/,
-					type: 'javascript/auto'
-				},	
-				{
-					test: /\.(js|jsx|ts|tsx|mjs)$/,
-					use: ['babel-loader', 'shebang-loader'],
-					exclude: [/node_modules/]
-				}
-			]
-		}
-	};
+	const config = baseConfig;
 	
 	config.entry = file;
 	const compiler = webpack(config);
@@ -79,15 +49,13 @@ const runCompilation = (file, options) => {
 const run = async () => {
 	const { _: params } = argv;
 
-	console.log(argv);
-
 	if (!params.length) {
 		throw new Error("No file passed to wprun");
 	}
 
 	try {
 		await runCompilation(params[0], {
-			nodeExternals: arv.nodeExternals
+			nodeExternals: argv.nodeExternals
 		});
 		runProgram();
 	}catch(err){
