@@ -25,7 +25,6 @@
   "license": "ISC",
   "dependencies": {
     "webpack": "^4.31.0",
-    "webpackx-config": "0.0.1-alpha.1",
     "yargs-parser": "^13.1.0"
   },
   "devDependencies": {

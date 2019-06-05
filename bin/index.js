@@ -4,7 +4,7 @@ const path = require('path');
 const yargsParser = require('yargs-parser');
 const webpack = require('webpack');
 const { spawn } = require('child_process');
-const baseConfig = require('webpackx-config');
+const webpacNodeExternals = require('webpack-node-externals');
 
 const argv = yargsParser(process.argv.slice(2));
 
@@ -29,7 +29,37 @@ const runProgram = () => {
 }
 
 const runCompilation = (file, options) => {
-	const config = baseConfig;
+	const config = {
+		mode: "production",
+		target: "node",
+		output: {
+			filename: "bundle.js"
+		},
+		externals: options.nodeExternals ? [webpacNodeExternals()] : [],
+		resolve: {
+			alias: {
+				"@babel/core": path.resolve(__dirname, "../node_modules/@babel/core")
+			},
+			extensions: ['.ts', '.tsx', '.js', '.json', '.mjs']
+		},
+		resolveLoader: {
+			modules: [path.resolve(__dirname, "../node_modules")]
+		},
+		module: {
+			rules: [
+				{
+					test: /\.mjs$/,
+					include: /node_modules/,
+					type: 'javascript/auto'
+				},	
+				{
+					test: /\.(js|jsx|ts|tsx|mjs)$/,
+					use: ['babel-loader', 'shebang-loader'],
+					exclude: [/node_modules/]
+				}
+			]
+		}
+	};
 	
 	config.entry = file;
 	const compiler = webpack(config);
