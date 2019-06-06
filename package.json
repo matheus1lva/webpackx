@@ -24,6 +24,8 @@
   "author": "PlayMa256<Matheus Gonçalves da Silva>",
   "license": "ISC",
   "dependencies": {
+    "babel-loader": "^8.0.6",
+    "shebang-loader": "0.0.1",
     "webpack": "^4.31.0",
     "webpack-node-externals": "1.7.2",
     "yargs-parser": "^13.1.0"
