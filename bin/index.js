@@ -42,9 +42,6 @@ const runCompilation = (file, options) => {
 			},
 			extensions: ['.ts', '.tsx', '.js', '.json', '.mjs']
 		},
-		resolveLoader: {
-			modules: [path.resolve(__dirname, "../node_modules")]
-		},
 		module: {
 			rules: [
 				{
@@ -54,7 +51,7 @@ const runCompilation = (file, options) => {
 				},	
 				{
 					test: /\.(js|jsx|ts|tsx|mjs)$/,
-					use: ['babel-loader', 'shebang-loader'],
+					use: [require.resolve('babel-loader'), require.resolve('shebang-loader')],
 					exclude: [/node_modules/]
 				}
 			]
