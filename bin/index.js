@@ -8,25 +8,29 @@ const webpacNodeExternals = require('webpack-node-externals');
 
 const argv = yargsParser(process.argv.slice(2));
 
-const runProgram = () => {
-	const outputFile = path.resolve('dist/bundle.js');
-	const program = spawn(process.execPath, [outputFile], {
-		std: "inherit",
-		shell: true
-	});
-
-	program.stdout.on('data', (data) => {
-		console.log(data.toString());
-	});
-
-	program.stderr.on('data', (data) => {
-		console.log(data.toString());
-	});
-	
-	program.on('exit', (code) => {
-		process.exit(code);
+function onExit(childProcess) {
+	return new Promise((resolve, reject) => {
+		childProcess.once('exit', (code, signal) => {
+			if (code === 0) {
+				resolve(undefined);
+			} else {
+				reject(new Error('Exit with error code: ' + code));
+			}
+		});
+		childProcess.once('error', (err: Error) => {
+			reject(err);
+		});
 	});
 }
+
+
+const runProgram = async () => {
+	const outputFile = path.join(outputPath, outputFilename);
+	const childProcess = spawn(process.execPath, [outputFile], {
+		stdio: [process.stdin, process.stdout, process.stderr],
+	});
+	await onExit(childProcess);
+};
 
 const runCompilation = (file, options) => {
 	const config = {
@@ -63,7 +67,6 @@ const runCompilation = (file, options) => {
 
 	return new Promise((resolve, reject) => {
 		compiler.run((fatal, stats) => {
-			console.log(stats);
 			if (stats && stats.hasErrors()) {
 				reject(fatal);
 			}
@@ -86,7 +89,7 @@ const run = async () => {
 		});
 		runProgram();
 	}catch(err){
-		console.log(err);
+		throw new Error(err);
 	}
 }
 
